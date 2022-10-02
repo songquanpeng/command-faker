@@ -15,6 +15,8 @@
 
 ## Basic Usages
 ```shell
-ls | ./faker > tmp && chmod u+x ./tmp && ./tmp
+# Specify a output name:
 ls | ./faker tmp && ./tmp
+# If you don't, it will output to stdout.
+ls | ./faker > tmp && chmod u+x ./tmp && ./tmp
 ```
