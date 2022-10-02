@@ -1,5 +1,5 @@
 # Faker
-> An executable file generator that used to fake other program.
+> An executable file generator that used to fake other programs.
 
 <p>
   <a href="https://raw.githubusercontent.com/songquanpeng/faker/main/LICENSE">
