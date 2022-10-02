@@ -17,9 +17,9 @@ char str3[] = "\";\n"
 
 int main(int argc, char *argv[]) {
     FILE *fp;
-    fp = fopen("tmp.c", "w");
+    fp = fopen(".tmp.c", "w");
     if (fp == NULL) {
-        printf("Error create tmp.c");
+        printf("Error create .tmp.c");
         exit(1);
     }
     fwrite(str1, sizeof(char), strlen(str1), fp);
@@ -63,21 +63,24 @@ int main(int argc, char *argv[]) {
     }
     fwrite(str3, sizeof(char), strlen(str3), fp);
     fclose(fp);
-    char cmd[13 + MAX(3, sizeof(argv[1]))] = "gcc tmp.c -o ";
+    char cmd[32 + MAX(4, sizeof(argv[1]))] = "gcc .tmp.c -o ";
     if (argc == 1) {
-        strcat(cmd, "tmp");
+        strcat(cmd, ".tmp");
+        strcat(cmd + 14 + 4, " > /dev/null 2>&1");
     } else {
         strcat(cmd, argv[1]);
+        strcat(cmd + 14 + strlen(argv[1]), " > /dev/null 2>&1");
     }
+
     if (system(cmd) != 0) {
         printf("Error execute gcc");
         exit(1);
     }
-    remove("tmp.c");
+    remove(".tmp.c");
     if (argc == 1) {
-        fp = fopen("tmp", "rb");
+        fp = fopen(".tmp", "rb");
         if (fp == NULL) {
-            printf("Error read tmp");
+            printf("Error read .tmp");
             exit(1);
         }
         while (1) {
@@ -101,7 +104,7 @@ int main(int argc, char *argv[]) {
                 offset += n_wrote;
             }
         }
-        remove("tmp");
+        remove(".tmp");
     }
     return 0;
 }
